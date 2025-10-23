@@ -6,9 +6,12 @@ from selenium.webdriver.chrome.service import Service
 driver = None
 
 def pytest_addoption(parser):
-    parser.addoption(
-        "--browser_name", action="store", default="chrome", help="browser selection"
-    )
+    if not hasattr(parser, "_browser_name_added"):
+        parser.addoption(
+            "--browser_name", action="store", default="chrome", help="browser selection"
+        )
+        parser._browser_name_added = True
+
 
 
 @pytest.fixture( scope="function" )
